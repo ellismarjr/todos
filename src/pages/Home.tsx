@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 
 import { Header } from '../components/Header';
 import { MyTasksList } from '../components/MyTasksList';
@@ -13,7 +14,7 @@ interface Task {
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  function handleAddTask(newTaskTitle: string) {
+  async function handleAddTask(newTaskTitle: string) {
     if (newTaskTitle) {
       const data = {
         id: new Date().getTime(),
@@ -22,10 +23,11 @@ export function Home() {
       };
 
       setTasks(prevArray => [...prevArray, data]);
+      await AsyncStorage.setItem('@todoApp:tasks', JSON.stringify([...tasks, data]))
     }
   }
 
-  function handleMarkTaskAsDone(id: number) {
+  async function handleMarkTaskAsDone(id: number) {
     const taskExists = tasks.find(task => task.id === id);
     if (taskExists) {
       const tasksFiltered = tasks.map(task => task.id === id
@@ -33,13 +35,26 @@ export function Home() {
         : task);
 
       setTasks(tasksFiltered);
+      await AsyncStorage.setItem('@todoApp:tasks', JSON.stringify(tasksFiltered));
     }
   }
 
-  function handleRemoveTask(id: number) {
+  async function handleRemoveTask(id: number) {
     const tasksFiltered = tasks.filter(task => task.id !== id);
     setTasks(tasksFiltered);
+    await AsyncStorage.setItem('@todoApp:tasks', JSON.stringify(tasksFiltered));
   }
+
+  useEffect(() => {
+    async function getTasks() {
+      const response = await AsyncStorage.getItem('@todoApp:tasks');
+      if (response) {
+        setTasks(JSON.parse(response));
+      }
+    }
+
+    getTasks();
+  }, []);
 
   return (
     <>
