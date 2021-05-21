@@ -1,5 +1,5 @@
 <h1 align="center">
-  MySkills APP
+  to.do APP
 </h1>
 
 ## :iphone: Mobile preview
