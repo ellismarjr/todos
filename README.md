@@ -4,7 +4,7 @@
 
 ## :iphone: Mobile preview
 <p align="left">
-  <img height="800" src="https://github.com/ellismarjr/todos/blob/master/preview.png">
+  <img height="800" src="https://github.com/ellismarjr/todos/blob/main/preview.png">
 </p>
 
 <h4 align="center">
