@@ -15,7 +15,11 @@ interface Task {
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const toggleSwitch = () => setIsDarkMode(previousState => !previousState);
+  const toggleSwitch = async () => {
+    await AsyncStorage.setItem('@todoApp:isDark', JSON.stringify(!isDarkMode));
+    setIsDarkMode(previousState => !previousState)
+  };
+
 
   async function handleAddTask(newTaskTitle: string) {
     if (newTaskTitle) {
@@ -57,6 +61,17 @@ export function Home() {
     }
 
     getTasks();
+  }, []);
+
+  useEffect(() => {
+    async function getThemes() {
+      const response = await AsyncStorage.getItem('@todoApp:isDark');
+      if (response) {
+        setIsDarkMode(JSON.parse(response));
+      }
+    }
+
+    getThemes();
   }, []);
 
   return (
