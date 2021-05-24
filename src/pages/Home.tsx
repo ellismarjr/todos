@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
+import { StatusBar, StyleSheet, View } from 'react-native';
 
 import { Header } from '../components/Header';
 import { MyTasksList } from '../components/MyTasksList';
@@ -13,6 +14,8 @@ interface Task {
 
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const toggleSwitch = () => setIsDarkMode(previousState => !previousState);
 
   async function handleAddTask(newTaskTitle: string) {
     if (newTaskTitle) {
@@ -57,16 +60,29 @@ export function Home() {
   }, []);
 
   return (
-    <>
-      <Header />
+    <View style={isDarkMode ? styles.containerDark : styles.containerLight}>
+      <Header isDarkMode={isDarkMode} />
 
-      <TodoInput addTask={handleAddTask} />
+      <TodoInput isDarkMode={isDarkMode} addTask={handleAddTask} />
 
       <MyTasksList
         tasks={tasks}
         onPress={handleMarkTaskAsDone}
         onLongPress={handleRemoveTask}
+        isDarkMode={isDarkMode}
+        toggleSwitch={toggleSwitch}
       />
-    </>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  containerLight: {
+    flex: 1,
+    backgroundColor: '#FFFF'
+  },
+  containerDark: {
+    flex: 1,
+    backgroundColor: '#10101E'
+  }
+});
