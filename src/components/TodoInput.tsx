@@ -27,7 +27,6 @@ export function TodoInput({ addTask, isDarkMode }: TodoInputProps) {
         onChangeText={setTask}
         onSubmitEditing={handleAddNewTask}
         placeholderTextColor={isDarkMode ? '#E1E1E6' : '#999'} 
-
       />
       <TouchableOpacity
         testID="add-new-task-button"
@@ -66,6 +65,7 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
+    color: '#666'
   },
   inputDartk: {
     flex: 1,
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
+    color: '#CCC'
   },
   inputPlaceholderDark: {
     color: '#E1E1E6'
