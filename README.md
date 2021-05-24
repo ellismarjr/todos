@@ -5,6 +5,8 @@
 ## :iphone: Mobile preview
 <p align="left">
   <img height="800" src="https://github.com/ellismarjr/todos/blob/main/preview.png">
+  <img height="800" src="https://github.com/ellismarjr/todos/blob/main/preview_dark.png">
+  <img height="800" src="https://github.com/ellismarjr/todos/blob/main/preview.gif">
 </p>
 
 <h4 align="center">
